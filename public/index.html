@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="App">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Calculadora corporal</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <base href="/">
+</head>
+<body>
+<div class="container-fluid">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#/" style="padding: 3px 10px">
+                    <img src="img/brand.png" width="43" height="43" />
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown" uib-dropdown>
+                        <a class="dropdown-toggle" href="#" uib-dropdown-toggle="">Usu&aacute;rios <b class="caret"></b></a>
+                        <ul class="dropdown-menu" uib-dropdown-menu>
+                            <li><a href="#/usuario/novo">Cadastrar</a></li>
+                            <li><a href="#/usuario/consultar">Consultar</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div ng-view></div>
+</div>
+
+<script type="text/ng-template" id="modalMessage.html">
+    <div class="modal-header">
+        <h3>Aviso</h3>
+    </div>
+    <div class="modal-body">
+        <p class="text-{{modalMessage.messageType}}">{{modalMessage.messageText}}</p>
+        <!--<uib-alert type="{{modalMessage.messageType}}" close="removeAlert()">
+            {{modalMessage.messageText}}
+        </uib-alert>-->
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="closeModalZeca()">OK</button>
+    </div>
+</script>
+
+<script type="text/javascript" src="js/main.js"></script>
+</body>
+</html>

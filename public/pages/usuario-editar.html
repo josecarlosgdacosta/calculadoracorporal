@@ -1,0 +1,129 @@
+<section class="container-fluid" ng-init="findUser()">
+
+    <div class="page-header">
+        <h2>{{pageTitle}}</h2>
+    </div>
+
+    {{user}}
+
+    <form ng-submit="addUser(user)" name="formUser" novalidate>
+
+        <div ng-class="{'form-group': true, 'has-feedback':true, 'has-error': formUser.nomeUsuario.$invalid && formUser.nomeUsuario.$dirty, 'has-success': formUser.nomeUsuario.$valid && formUser.nomeUsuario.$dirty}">
+            <label class="control-label" for="nomeUsuario">Nome:</label>
+            <div class="row">
+                <div class="col-lg-4">
+                    <input type="text" class="form-control" id="nomeUsuario" name="nomeUsuario"
+                           placeholder="Nome completo"
+                           ng-model="user.nome_usuario" ng-required="true" ng-maxlength="60"
+                           ng-minlength="5">
+                </div>
+            </div>
+                <span class="help-block" style="float: left;"
+                      ng-if="formUser.nomeUsuario.$dirty && formUser.nomeUsuario.$error.required">Este
+                    campo é obrigatório.</span>
+                <span class="help-block" style="float: left;"
+                      ng-if="formUser.nomeUsuario.$dirty && formUser.nomeUsuario.$error.minlength">O
+                    tamanho mínimo permitido é de 5 caracteres.</span>
+                <span class="help-block" style="float: left;"
+                      ng-if="formUser.nomeUsuario.$dirty && formUser.nomeUsuario.$error.maxlength">O
+                    tamanho máximo permitido é de 60 caracteres.</span>
+        </div>
+
+        <br/>
+
+        <div ng-class="{'form-group': true, 'has-error': formUser.cpfUsuario.$invalid && formUser.cpfUsuario.$dirty, 'has-success': formUser.cpfUsuario.$valid && formUser.cpfUsuario.$dirty}">
+            <label class="control-label" for="cpfUsuario">CPF:</label>
+            <div class="row">
+                <div class="col-lg-4">
+                    <input type="text" class="form-control" id="cpfUsuario" name="cpfUsuario"
+                           placeholder="CPF"
+                           ng-model="user.cpf_usuario" cpf-mask ng-required="true" ng-maxlength="14"
+                           ng-minlength="14">
+                </div>
+            </div>
+                <span class="help-block" style="float: left;"
+                      ng-if="formUser.cpfUsuario.$dirty && formUser.cpfUsuario.$error.required">Este
+                    campo é obrigatório.</span>
+                <span class="help-block" style="float: left;"
+                      ng-if="formUser.cpfUsuario.$dirty && (formUser.cpfUsuario.$error.minlength || formUser.cpfUsuario.$error.maxlength)">
+                    O CPF deve conter 14 dígitos.</span>
+        </div>
+
+        <br/>
+
+        <div ng-class="{'form-group': true, 'has-error': formUser.emailUsuario.$invalid && formUser.emailUsuario.$dirty, 'has-success': formUser.emailUsuario.$valid && formUser.emailUsuario.$dirty}">
+            <label class="control-label" for="emailUsuario">Email:</label>
+            <div class="row">
+                <div class="col-lg-4">
+                    <input type="email" class="form-control" id="emailUsuario" name="emailUsuario"
+                           placeholder="E-mail"
+                           ng-model="user.email_usuario" ng-required="true">
+                </div>
+            </div>
+
+            <p class="help-block" style="float: left;"
+               ng-if="formUser.emailUsuario.$dirty && formUser.emailUsuario.$error.required">
+                Este
+                campo é obrigatório.</p>
+            <p class="help-block" style="float: left;"
+               ng-if="formUser.emailUsuario.$dirty && formUser.emailUsuario.$error.email">O
+                email informado é inválido.</p>
+        </div>
+        <br/>
+        <div ng-class="{'form-group': true, 'has-error': formUser.dataNascUsuario.$invalid && formUser.dataNascUsuario.$dirty, 'has-success': formUser.dataNascUsuario.$valid && formUser.dataNascUsuario.$dirty}">
+            <label class="control-label" for="dataNascUsuario">Data de nascimento:</label>
+            <div class="row">
+                <div class="col-lg-4">
+                    <input type="text" class="form-control" id="dataNascUsuario" name="dataNascUsuario"
+                           placeholder="Data de nascimento" ng-model="user.data_nascimento_usuario"
+                           date-mask ng-required="true"
+                           ng-pattern="/([1-9]|0[1-9]|[12][0-9]|3[01])/([1-9]|0[1-9]|1[0-2])/([1-9]\d{3})/">
+                </div>
+            </div>
+            <p class="help-block" style="float: left;"
+               ng-if="formUser.dataNascUsuario.$dirty && formUser.dataNascUsuario.$error.required">
+                Este
+                campo é obrigatório.</p>
+            <p class="help-block" style="float: left;"
+               ng-if="formUser.dataNascUsuario.$dirty && formUser.dataNascUsuario.$error.pattern">
+                Informe a data no padrão dd/mm/aaaa.</p>
+        </div>
+
+        <br/>
+
+        <div ng-class="{'form-group': true}">
+            <label class="control-label">Sexo:</label>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="radio">
+                        <label for="sexoMasculino">
+                            <input type="radio" name="sexoUsuario" id="sexoMasculino" value="m"
+                                   ng-model="user.sexo_usuario" ng-required="!user.sexo_usuario" checkUserSex>
+                            Masculino
+                        </label>
+                    </div>
+
+                    <div class="radio">
+                        <label for="sexoFeminino">
+                            <input type="radio" name="sexoUsuario" id="sexoFeminino" value="f"
+                                   ng-model="user.sexo_usuario" ng-required="!user.sexo_usuario">
+                            Feminino
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br/>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-success"
+                    ng-disabled="formUser.$invalid || doingSaveUser">
+                {{saveButton}}
+            </button>
+            <button type="button" class="btn btn-danger" ng-click="resetFormNewUser()">
+                Limpar
+            </button>
+        </div>
+    </form>
+</section>
