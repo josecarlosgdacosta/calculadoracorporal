@@ -6,7 +6,7 @@
 
     {{user}}
 
-    <form ng-submit="addUser(user)" name="formUser" novalidate>
+    <form ng-submit="updateUser(user)" name="formUser" novalidate>
 
         <div ng-class="{'form-group': true, 'has-feedback':true, 'has-error': formUser.nomeUsuario.$invalid && formUser.nomeUsuario.$dirty, 'has-success': formUser.nomeUsuario.$valid && formUser.nomeUsuario.$dirty}">
             <label class="control-label" for="nomeUsuario">Nome:</label>
@@ -98,7 +98,7 @@
                     <div class="radio">
                         <label for="sexoMasculino">
                             <input type="radio" name="sexoUsuario" id="sexoMasculino" value="m"
-                                   ng-model="user.sexo_usuario" ng-required="!user.sexo_usuario" checkUserSex>
+                                   ng-model="user.sexo_usuario" ng-required="!user.sexo_usuario" ng-checked="user.sexo_usuario == 'M'">
                             Masculino
                         </label>
                     </div>
@@ -106,7 +106,7 @@
                     <div class="radio">
                         <label for="sexoFeminino">
                             <input type="radio" name="sexoUsuario" id="sexoFeminino" value="f"
-                                   ng-model="user.sexo_usuario" ng-required="!user.sexo_usuario">
+                                   ng-model="user.sexo_usuario" ng-required="!user.sexo_usuario" ng-checked="user.sexo_usuario == 'F'">
                             Feminino
                         </label>
                     </div>

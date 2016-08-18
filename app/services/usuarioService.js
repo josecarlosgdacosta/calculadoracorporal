@@ -15,20 +15,26 @@ module.exports = function ($rootScope, $http) {
         return $http.get("http://localhost:8081", config);
     };
 
-    var _saveUser = function (user) {
+    var _saveAtleta = function (user) {
         $rootScope.$emit("START_SAVE_USER");
         return $http.post("http://localhost:8081", user);
     };
 
-    var _deleteUser = function (user) {
+    var _deleteAtleta = function (user) {
         $rootScope.$emit("START_DELETE_USER");
         return $http.post("http://localhost:8081", user);
     };
+    
+    var _updateAtleta = function (user) {
+        $rootScope.$emit("START_SAVE_USER");
+        return $http.post("http://localhost:8081", user);
+    }
 
     return {
         getAtletas: _getAtletas,
-        saveUser: _saveUser,
-        deleteUser: _deleteUser,
-        getAtleta: _getAtleta
+        saveAtleta: _saveAtleta,
+        deleteAtleta: _deleteAtleta,
+        getAtleta: _getAtleta,
+        updateAtleta: _updateAtleta
     };
 }

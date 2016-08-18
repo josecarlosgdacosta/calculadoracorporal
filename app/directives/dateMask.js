@@ -22,13 +22,19 @@ module.exports = function () {
                 controller.$render();
             });
 
-            controller.$parsers.push(function(value) {
-                value = value.replace(/\D/g, "");
-                value = value.replace(/(\d{2})(\d{2})(\d{4})/, "$3-$2-$1");
-                return value;
+            controller.$parsers.push(function(viewValue) {
+                viewValue = viewValue.replace(/\D/g, "");
+                viewValue = viewValue.replace(/(\d{2})(\d{2})(\d{4})/, "$3-$2-$1");
+                return viewValue;
             });
 
+            controller.$formatters.push(function(modelValue) {
+                if (typeof(modelValue) !== "undefined") {
+                    modelValue = modelValue.replace(/\D/g, "");
+                    modelValue = modelValue.replace(/(\d{4})(\d{2})(\d{2})/, "$3/$2/$1");
+                    return modelValue;
+                }
+            });
         }
     }
-
 }

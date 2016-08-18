@@ -132,6 +132,8 @@ if ($post) {
 
     if (isset($post->action) && $post->action === "save") {
         $provider->saveAtleta($post);
+    } elseif (isset($post->action) && $post->action === "update") {
+        var_dump($post);exit;
     } elseif (isset($post->action) && $post->action === "delete") {
         $provider->deleteAtleta($post);
     }

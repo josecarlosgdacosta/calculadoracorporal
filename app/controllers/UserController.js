@@ -63,9 +63,8 @@ module.exports = function ($rootScope, $scope, $http, $routeParams, $window, usu
         var _type = null;
 
         if (newUser) {
-
             newUser["action"] = "save";
-            usuarioService.saveUser(newUser).then(
+            usuarioService.saveAtleta(newUser).then(
                 function (response) {
                     _message = response.data.message;
                     _type = response.data.success == false ? "danger" : "success";
@@ -79,7 +78,6 @@ module.exports = function ($rootScope, $scope, $http, $routeParams, $window, usu
                     _type = "danger";
                     $rootScope.$emit("END_SAVE_USER");
                     modalService.openModal("modalMessage.html", _type, _message);
-
                 }
             );
 
@@ -108,7 +106,7 @@ module.exports = function ($rootScope, $scope, $http, $routeParams, $window, usu
 
         if (user) {
             user["action"] = "delete";
-            usuarioService.deleteUser(user).then(
+            usuarioService.deleteAtleta(user).then(
                 function (response) {
                     _message = response.data.message;
                     _type = response.data.success == false ? "danger" : "success";
@@ -130,4 +128,46 @@ module.exports = function ($rootScope, $scope, $http, $routeParams, $window, usu
             });
         }
     }
+
+    $scope.updateUser = function (user) {
+        $rootScope.$on("START_SAVE_USER", function() {
+            $scope.doingSaveUser = true;
+            $scope.saveButton = "Aguarde...";
+        });
+
+        var _message = null;
+        var _type = null;
+
+        if (user) {
+            console.log(user);
+            user["action"] = "update";
+            console.log(user);
+            usuarioService.updateAtleta(user).then(
+                function (response) {
+                    _message = response.data.message;
+                    _type = response.data.success == false ? "danger" : "success";
+                    $scope.newUser = {};
+                    $rootScope.$emit("END_SAVE_USER");
+                    modalService.openModal("modalMessage.html", _type, _message);
+                },
+                function (response) {
+                    console.log(response);
+                    _message = "Houve uma falha na comunicação com o servidor.";
+                    _type = "danger";
+                    $rootScope.$emit("END_SAVE_USER");
+                    modalService.openModal("modalMessage.html", _type, _message);
+                }
+            );
+
+        } else {
+            _message = "Por favor, preencha todas as informações.";
+            _type = "danger";
+            modalService.openModal("modalMessage.html", _type, _message);
+        }
+
+        $rootScope.$on("END_SAVE_USER", function() {
+            $scope.doingSaveUser = false;
+            $scope.saveButton = "Salvar";
+        });
+    };
 };
